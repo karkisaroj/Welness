@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "auth_service": "cpp",
+        "future": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}
