@@ -1,16 +1,25 @@
 # welness
 
-A new Flutter project.
+![alt text](image.png),
 
-## Getting Started
+Works with firebase and proper navigation with clean app routes implemented
 
-This project is a starting point for a Flutter application.
+![alt text](image-1.png)
 
-A few resources to get you started if this is your first Flutter project:
+Works with firebase to sign up and navigate to login page
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+![alt text](image-2.png)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Works with topics for preference and the selected topics is sent as required parameter in the next navigation page as Quote
+
+![alt text](image-3.png)
+
+A clean layout of home page inside the welness where all are customizable like the favourites and other options required
+
+![alt text](image-4.png)
+
+A clean profile design with customization of theme and use of firebase to forgot password and log out
+
+![alt text](image-5.png)
+
+The main UI for showing the qotes from the required parameter from preferences 
