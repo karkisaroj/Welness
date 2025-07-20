@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:welness/app/app_routes.dart';
 
 class AdminDashboard extends StatelessWidget {
   const AdminDashboard({super.key});
@@ -8,6 +9,12 @@ class AdminDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushNamed(context, AppRoutes.login);
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
         title: Text(
           "Dashboard",
           style: TextStyle(
@@ -113,7 +120,9 @@ class AdminDashboard extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadiusGeometry.circular(25.r),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, AppRoutes.category);
+                        },
                         child: Icon(Icons.add, color: Colors.white),
                       ),
                       SizedBox(height: 10.h),
