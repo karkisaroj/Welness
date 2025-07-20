@@ -3,6 +3,7 @@ import 'package:welness/screens/dashboard_screen.dart';
 import 'package:welness/screens/forgot_password_screen.dart';
 import 'package:welness/screens/login_screen.dart';
 import 'package:welness/screens/preference.dart';
+import 'package:welness/screens/profile_screen.dart';
 import 'package:welness/screens/quote_page.dart';
 import 'package:welness/screens/signup_screen.dart';
 
@@ -14,6 +15,7 @@ class AppRoutes {
   static const String preference = '/preference';
   static const String quote = '/quote';
   static const String dashboard = '/dashboard';
+  static const String profile = "/profile";
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -27,6 +29,7 @@ class AppRoutes {
             ModalRoute.of(context)!.settings.arguments as List<String>,
       ),
       dashboard: (context) => const DashboardScreen(),
+      profile: (context) => const ProfileScreen(),
     };
   }
 }
