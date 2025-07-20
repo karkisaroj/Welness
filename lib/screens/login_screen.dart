@@ -127,12 +127,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 20.h),
                 ElevatedButton(
                   onPressed: () {
+                    if (emailController.text == "admin" &&
+                        passwordController.text == "admin") {
+                      Navigator.pushNamed(context, AppRoutes.adminDashboard);
+                    } else {
+                      Navigator.pushNamed(context, AppRoutes.preference);
+                    }
                     String email = emailController.text;
                     String password = passwordController.text;
                     log("email is $email");
                     log("password is $password");
-                    //remaining firebase functions here i gueess
-                    Navigator.pushNamed(context, AppRoutes.preference);
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:welness/screens/admin_dashboard.dart';
 import 'package:welness/screens/dashboard_screen.dart';
 import 'package:welness/screens/forgot_password_screen.dart';
 import 'package:welness/screens/login_screen.dart';
@@ -17,7 +18,8 @@ class AppRoutes {
   static const String quote = '/quote';
   static const String dashboard = '/dashboard';
   static const String profile = "/profile";
-  static const String quotes_details = "/quotes-details";
+  static const String quotesDetails = "/quotes-details";
+  static const String adminDashboard = "/adminDashboard";
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -32,7 +34,8 @@ class AppRoutes {
       ),
       dashboard: (context) => const DashboardScreen(),
       profile: (context) => const ProfileScreen(),
-      quotes_details: (context) => const QuotesDetailsScreen(),
+      quotesDetails: (context) => const QuotesDetailsScreen(),
+      adminDashboard: (context) => const AdminDashboard(),
     };
   }
 }

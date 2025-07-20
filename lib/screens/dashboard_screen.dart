@@ -101,7 +101,7 @@ class DashboardScreen extends StatelessWidget {
           SizedBox(height: 20.h),
           ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, AppRoutes.quotes_details);
+              Navigator.pushNamed(context, AppRoutes.quotesDetails);
             },
             style: ElevatedButton.styleFrom(
               fixedSize: Size(360, 120),
