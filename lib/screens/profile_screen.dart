@@ -8,6 +8,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Icon(Icons.arrow_back_ios),
         title: Text(
           "Profile",
           style: TextStyle(fontFamily: "Poppins", fontSize: 17.h),
