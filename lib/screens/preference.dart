@@ -106,7 +106,7 @@ class _PreferenceState extends State<Preference> {
               log(selectedTopics.toString(), name: "topics");
               Navigator.pushNamed(
                 context,
-                AppRoutes.login,
+                AppRoutes.quote,
                 arguments: selectedTopics,
               );
             },

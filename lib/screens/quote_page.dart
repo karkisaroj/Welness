@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:welness/app/app_routes.dart';
 
 class QuotePage extends StatelessWidget {
   final List<String> selectedTopics;
@@ -23,6 +24,12 @@ class QuotePage extends StatelessWidget {
             ),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, AppRoutes.dashboard);
+        },
+        child: Icon(Icons.arrow_forward_rounded),
       ),
     );
   }
