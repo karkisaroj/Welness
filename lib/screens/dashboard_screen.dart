@@ -100,7 +100,9 @@ class DashboardScreen extends StatelessWidget {
           ),
           SizedBox(height: 20.h),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.quotes_details);
+            },
             style: ElevatedButton.styleFrom(
               fixedSize: Size(360, 120),
               shape: RoundedRectangleBorder(
@@ -163,7 +165,7 @@ class DashboardScreen extends StatelessWidget {
                 SizedBox(width: 10.w),
                 Text("Feeling blessed", style: TextStyle(color: Colors.white)),
                 Spacer(),
-                Icon(Icons.keyboard_arrow_right_outlined, color: Colors.white),
+                Icon(Icons.keyboard_arrow_right_outlined, color: Colors.grey),
               ],
             ),
           ),
@@ -183,7 +185,7 @@ class DashboardScreen extends StatelessWidget {
                 SizedBox(width: 10.w),
                 Text("Pride Month", style: TextStyle(color: Colors.white)),
                 Spacer(),
-                Icon(Icons.keyboard_arrow_right_outlined, color: Colors.white),
+                Icon(Icons.keyboard_arrow_right_outlined, color: Colors.grey),
               ],
             ),
           ),
@@ -202,7 +204,7 @@ class DashboardScreen extends StatelessWidget {
                 SizedBox(width: 10.w),
                 Text("Self-worth", style: TextStyle(color: Colors.white)),
                 Spacer(),
-                Icon(Icons.keyboard_arrow_right_outlined, color: Colors.white),
+                Icon(Icons.keyboard_arrow_right_outlined, color: Colors.grey),
               ],
             ),
           ),
@@ -222,7 +224,7 @@ class DashboardScreen extends StatelessWidget {
                 SizedBox(width: 10.w),
                 Text("Love", style: TextStyle(color: Colors.white)),
                 Spacer(),
-                Icon(Icons.keyboard_arrow_right_outlined, color: Colors.white),
+                Icon(Icons.keyboard_arrow_right_outlined, color: Colors.grey),
               ],
             ),
           ),
@@ -257,7 +259,7 @@ class DashboardScreen extends StatelessWidget {
                 SizedBox(width: 10.w),
                 Text("Breathe to Reset", style: TextStyle(color: Colors.white)),
                 Spacer(),
-                Icon(Icons.keyboard_arrow_right_outlined, color: Colors.white),
+                Icon(Icons.keyboard_arrow_right_outlined, color: Colors.grey),
               ],
             ),
           ),

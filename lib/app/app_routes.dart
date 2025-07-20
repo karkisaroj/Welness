@@ -5,6 +5,7 @@ import 'package:welness/screens/login_screen.dart';
 import 'package:welness/screens/preference.dart';
 import 'package:welness/screens/profile_screen.dart';
 import 'package:welness/screens/quote_page.dart';
+import 'package:welness/screens/quotes_details_screen.dart';
 import 'package:welness/screens/signup_screen.dart';
 
 class AppRoutes {
@@ -16,6 +17,7 @@ class AppRoutes {
   static const String quote = '/quote';
   static const String dashboard = '/dashboard';
   static const String profile = "/profile";
+  static const String quotes_details = "/quotes-details";
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -30,6 +32,7 @@ class AppRoutes {
       ),
       dashboard: (context) => const DashboardScreen(),
       profile: (context) => const ProfileScreen(),
+      quotes_details: (context) => const QuotesDetailsScreen(),
     };
   }
 }
