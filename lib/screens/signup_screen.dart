@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:welness/app/app_routes.dart';
+import 'package:welness/services/auth_service.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -13,8 +15,10 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  final AuthService _authService = AuthService();
   bool passwordVisible = false;
   bool isChecked = false;
+  bool isLoading = false;
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -102,24 +106,97 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 minimumSize: const Size(360, 50),
               ),
-              onPressed: () {
+              onPressed: () async {
+                final messenger = ScaffoldMessenger.of(context);
+                final navigator = Navigator.of(context);
                 String userName = userNameController.text;
                 String email = emailController.text;
                 String password = passwordController.text;
                 log("username is $userName");
                 log("email is $email");
                 log("Password is $password");
+
+                if (userName.isEmpty) {
+                  messenger.showSnackBar(
+                    SnackBar(content: Text("please enter your name")),
+                  );
+                  return;
+                }
+                if (email.isEmpty) {
+                  messenger.showSnackBar(
+                    SnackBar(content: Text("Please enter your email")),
+                  );
+                  return;
+                }
+                if (password.isEmpty) {
+                  messenger.showSnackBar(
+                    SnackBar(content: Text("Please enter your password")),
+                  );
+                  return;
+                }
+                if (password.length < 6) {
+                  messenger.showSnackBar(
+                    SnackBar(
+                      content: Text("Password must be at least 6 character "),
+                    ),
+                  );
+                  return;
+                }
                 //remaining firebase work here to do
+                setState(() {
+                  isLoading = true;
+                });
+                try {
+                  UserCredential? result = await _authService
+                      .signUpWithEmailPassword(
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim(),
+                      );
+                  if (!mounted) return;
+                  if (result != null) {
+                    messenger.showSnackBar(
+                      SnackBar(
+                        content: Text("Account Created"),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                    navigator.pushNamed(AppRoutes.login);
+                  } else {
+                    messenger.showSnackBar(
+                      SnackBar(
+                        content: Text("Signup failed -please try again"),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                } catch (e) {
+                  messenger.showSnackBar(
+                    SnackBar(content: Text("Error: ${e.toString()}")),
+                  );
+                  log("Exception error $e");
+                } finally {
+                  if (mounted) {
+                    setState(() {
+                      isLoading = false;
+                    });
+                  }
+                }
               },
-              child: Text(
-                "Sign up",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: "Poppins",
-                ),
-              ),
+              child: isLoading
+                  ? CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(Colors.black),
+                      strokeWidth: 2,
+                    )
+                  : Text(
+                      "Sign up",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "Poppins",
+                      ),
+                    ),
             ),
+
             SizedBox(height: 20.h),
             Center(
               child: Text("Or", style: TextStyle(fontSize: 15.h)),
@@ -132,7 +209,29 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 minimumSize: Size(360, 50),
               ),
-              onPressed: () {},
+              onPressed: () async {
+                final messenger = ScaffoldMessenger.of(context);
+                final navigation = Navigator.of(context);
+                try {
+                  UserCredential? result = await _authService
+                      .signInWithGoogle();
+                  if (result != null) {
+                    messenger.showSnackBar(
+                      SnackBar(content: Text("Google Sign-in Successful ")),
+                    );
+                    navigation.pushNamed(AppRoutes.preference);
+                  } else {
+                    messenger.showSnackBar(
+                      SnackBar(content: Text("Google Sign-In failed")),
+                    );
+                  }
+                } catch (e) {
+                  messenger.showSnackBar(
+                    SnackBar(content: Text("Error: ${e.toString()}")),
+                  );
+                  log("Google Sign-in error: $e");
+                }
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:welness/app/app_routes.dart';
+import 'package:welness/services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
   bool passwordVisible = false;
   bool isChecked = false;
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -126,12 +129,72 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 20.h),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    final messenger = ScaffoldMessenger.of(context);
+                    final navigation = Navigator.of(context);
+                    if (emailController.text.isEmpty) {
+                      messenger.showSnackBar(
+                        SnackBar(content: Text("Fill out your email")),
+                      );
+                      return;
+                    }
+
+                    if (passwordController.text.isEmpty) {
+                      messenger.showSnackBar(
+                        SnackBar(content: Text("Fill out your password")),
+                      );
+                      return;
+                    }
+
                     if (emailController.text == "admin" &&
                         passwordController.text == "admin") {
-                      Navigator.pushNamed(context, AppRoutes.adminDashboard);
+                      navigation.pushNamed(AppRoutes.adminDashboard);
                     } else {
-                      Navigator.pushNamed(context, AppRoutes.preference);
+                      try {
+                        if (!mounted) return;
+                        UserCredential? result = await _authService
+                            .signInWithEmailPassword(
+                              email: emailController.text.trim(),
+                              password: passwordController.text.trim(),
+                            );
+                        if (result != null) {
+                          messenger.showSnackBar(
+                            SnackBar(content: Text("Sign in successfull")),
+                          );
+                          navigation.pushNamed(AppRoutes.preference);
+                        } else {
+                          messenger.showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                "Signin failed \nplease trt again later",
+                              ),
+                            ),
+                          );
+                        }
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'user-not-found') {
+                          messenger.showSnackBar(
+                            SnackBar(
+                              content: Text("No user found by your email"),
+                            ),
+                          );
+                          return;
+                        } else if (e.code == 'wrong-password') {
+                          messenger.showSnackBar(
+                            SnackBar(content: Text("Wrong password")),
+                          );
+                          return;
+                        } else {
+                          messenger.showSnackBar(
+                            SnackBar(
+                              content: Text("Sign-in Failed: ${e.message}"),
+                            ),
+                          );
+                          return log(
+                            "Firebase Auth Error: ${e.code} - ${e.toString()}",
+                          );
+                        }
+                      }
                     }
                     String email = emailController.text;
                     String password = passwordController.text;
@@ -163,7 +226,29 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     minimumSize: const Size(360, 50),
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    final messenger = ScaffoldMessenger.of(context);
+                    final navigation = Navigator.of(context);
+                    try {
+                      UserCredential? result = await _authService
+                          .signInWithGoogle();
+                      if (result != null) {
+                        messenger.showSnackBar(
+                          SnackBar(content: Text("Google Sign-in Successful ")),
+                        );
+                        navigation.pushNamed(AppRoutes.preference);
+                      } else {
+                        messenger.showSnackBar(
+                          SnackBar(content: Text("Google Sign-In failed")),
+                        );
+                      }
+                    } catch (e) {
+                      messenger.showSnackBar(
+                        SnackBar(content: Text("Error: ${e.toString()}")),
+                      );
+                      log("Google Sign-in error: $e");
+                    }
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "816448439720",
+    "project_id": "welness-1b4ed",
+    "storage_bucket": "welness-1b4ed.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816448439720:android:c8f5b084778d2cb06c099d",
+        "android_client_info": {
+          "package_name": "com.example.welness"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8FAqe-8CRPlMbU1EpIMQk5XktRwfvXDk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
