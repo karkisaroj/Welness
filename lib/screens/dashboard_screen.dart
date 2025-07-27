@@ -156,7 +156,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 );
               },
               style: ElevatedButton.styleFrom(
-                fixedSize: Size(320.w, 120.h),
+                fixedSize: Size(320.w, 160.h),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.r),
                 ),
@@ -177,7 +177,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                     TextSpan(
                       text: todaysQuote != null
-                          ? "\n\n- ${todaysQuote!.author.isNotEmpty ? todaysQuote!.author : 'Unknown'}"
+                          ? "\n\n- ${todaysQuote!.author.isNotEmpty ? todaysQuote!.author : 'Sam Levenson'}"
                           : "\n\n- Loading...",
                       style: TextStyle(
                         fontFamily: "Poppins",

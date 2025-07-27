@@ -111,7 +111,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 borderRadius: BorderRadiusGeometry.circular(10.r),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.preference);
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -186,7 +188,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 borderRadius: BorderRadiusGeometry.circular(8.r),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.forgotpassword);
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

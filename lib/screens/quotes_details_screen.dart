@@ -48,10 +48,6 @@ class _QuotesDetailsScreenState extends State<QuotesDetailsScreen> {
 
       selectedCategories = userPreferences;
 
-      log("=== LOADING QUOTES DEBUG ===");
-      log("User preferences: $userPreferences");
-      log("Selected categories: $selectedCategories");
-
       quotes = QuotesData.getQuotesByPreferences(userPreferences);
 
       if (quotes.isNotEmpty) {
@@ -249,7 +245,7 @@ class _QuotesDetailsScreenState extends State<QuotesDetailsScreen> {
               ),
             ),
 
-            SizedBox(height: 100.h),
+            SizedBox(height: 10.h),
 
             Expanded(
               child: Center(
@@ -259,13 +255,13 @@ class _QuotesDetailsScreenState extends State<QuotesDetailsScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        padding: EdgeInsets.all(20.w),
+                        padding: EdgeInsets.all(40.w),
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade900.withOpacity(0.3),
+                          color: Colors.black.withValues(),
                           borderRadius: BorderRadius.circular(15.r),
                           border: Border.all(
-                            color: Colors.grey.shade700.withOpacity(0.3),
-                            width: 1,
+                            color: Colors.black.withValues(),
+                            width: 2,
                           ),
                         ),
                         child: Column(
@@ -296,22 +292,22 @@ class _QuotesDetailsScreenState extends State<QuotesDetailsScreen> {
                               ),
                             ),
 
-                            SizedBox(height: 10.h),
+                            SizedBox(height: 20.h),
 
                             Container(
                               padding: EdgeInsets.symmetric(
-                                horizontal: 12.w,
-                                vertical: 6.h,
+                                horizontal: 24.w,
+                                vertical: 8.h,
                               ),
                               decoration: BoxDecoration(
-                                color: Colors.blue.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(20.r),
+                                color: Colors.grey.withAlpha(100),
+                                borderRadius: BorderRadius.circular(10.r),
                               ),
                               child: Text(
                                 currentQuote.category,
                                 style: TextStyle(
                                   fontSize: 12.sp,
-                                  color: Colors.blue.shade300,
+                                  color: Colors.black,
                                   fontFamily: "Poppins",
                                   fontWeight: FontWeight.w500,
                                 ),
