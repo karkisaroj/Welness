@@ -10,7 +10,7 @@ class Welness extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       child: MaterialApp(
-        initialRoute: AppRoutes.login,
+        initialRoute: AppRoutes.splash,
         routes: AppRoutes.getRoutes(),
         debugShowCheckedModeBanner: false,
         home: LoginScreen(),

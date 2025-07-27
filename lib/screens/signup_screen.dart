@@ -97,10 +97,9 @@ class _SignupScreenState extends State<SignupScreen> {
               ],
             ),
             SizedBox(height: 20.h),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
+            TextButton(
+              style: TextButton.styleFrom(
                 backgroundColor: Colors.white,
-
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadiusGeometry.circular(10.r),
                 ),
@@ -109,8 +108,8 @@ class _SignupScreenState extends State<SignupScreen> {
               onPressed: () async {
                 final messenger = ScaffoldMessenger.of(context);
                 final navigator = Navigator.of(context);
-                String userName = userNameController.text;
-                String email = emailController.text;
+                String userName = userNameController.text.trim();
+                String email = emailController.text.trim();
                 String password = passwordController.text;
                 log("username is $userName");
                 log("email is $email");
@@ -142,21 +141,18 @@ class _SignupScreenState extends State<SignupScreen> {
                   );
                   return;
                 }
-                //remaining firebase work here to do
                 setState(() {
                   isLoading = true;
                 });
                 try {
-                  UserCredential? result = await _authService
-                      .signUpWithEmailPassword(
-                        email: emailController.text.trim(),
-                        password: passwordController.text.trim(),
-                      );
+                  bool result = await AuthService.register(email, password);
                   if (!mounted) return;
-                  if (result != null) {
+                  if (result) {
                     messenger.showSnackBar(
                       SnackBar(
-                        content: Text("Account Created"),
+                        content: Text(
+                          "Account Created: Current user:${AuthService.currentAppUser}",
+                        ),
                         backgroundColor: Colors.green,
                       ),
                     );

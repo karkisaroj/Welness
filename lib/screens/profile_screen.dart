@@ -1,9 +1,30 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:welness/app/app_routes.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  Future<void> _logout() async {
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      await FirebaseAuth.instance.signOut();
+      if (!mounted) return;
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRoutes.login,
+        (route) => false,
+      );
+    } catch (e) {
+      messenger.showSnackBar(SnackBar(content: Text("Error signing out: $e")));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +217,7 @@ class ProfileScreen extends StatelessWidget {
                 borderRadius: BorderRadiusGeometry.circular(8.r),
               ),
             ),
-            onPressed: () {},
+            onPressed: _logout,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

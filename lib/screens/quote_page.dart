@@ -27,7 +27,11 @@ class QuotePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, AppRoutes.dashboard);
+          Navigator.pushNamed(
+            context,
+            AppRoutes.dashboard,
+            arguments: selectedTopics,
+          );
         },
         child: Icon(Icons.arrow_forward_rounded),
       ),

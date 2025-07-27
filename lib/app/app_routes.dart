@@ -9,8 +9,10 @@ import 'package:welness/screens/profile_screen.dart';
 import 'package:welness/screens/quote_page.dart';
 import 'package:welness/screens/quotes_details_screen.dart';
 import 'package:welness/screens/signup_screen.dart';
+import 'package:welness/screens/splash_screen.dart';
 
 class AppRoutes {
+  static const String splash = '/splash';
   static const String login = '/login';
   static const String home = '/home';
   static const String forgotpassword = '/forgot-password';
@@ -25,8 +27,8 @@ class AppRoutes {
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
+      splash: (context) => const SplashScreen(),
       login: (context) => const LoginScreen(),
-      // home:(context)=>const HomeScreen(),
       forgotpassword: (context) => const ForgotPasswordScreen(),
       signup: (context) => const SignupScreen(),
       preference: (context) => const Preference(),
