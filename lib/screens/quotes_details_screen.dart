@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:welness/dummy_data/quotes_data.dart';
 import '../models/quote.dart';
 import '../services/auth_service.dart';
+import '../widgets/favorite_button.dart';
 
 class QuotesDetailsScreen extends StatefulWidget {
   final List<String>? selectedTopics;
@@ -264,53 +265,65 @@ class _QuotesDetailsScreenState extends State<QuotesDetailsScreen> {
                             width: 2,
                           ),
                         ),
-                        child: Column(
+                        child: Stack(
                           children: [
-                            Text(
-                              '"${currentQuote.text}"',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 18.sp,
-                                color: Colors.white,
-                                fontFamily: "Poppins",
-                                height: 1.5,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-
-                            SizedBox(height: 20.h),
-
-                            Text(
-                              currentQuote.author.isNotEmpty
-                                  ? '- ${currentQuote.author}'
-                                  : '- Unknown',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                color: Colors.grey.shade400,
-                                fontFamily: "Poppins",
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-
-                            SizedBox(height: 20.h),
-
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 24.w,
-                                vertical: 8.h,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.grey.withAlpha(100),
-                                borderRadius: BorderRadius.circular(10.r),
-                              ),
-                              child: Text(
-                                currentQuote.category,
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: Colors.black,
-                                  fontFamily: "Poppins",
-                                  fontWeight: FontWeight.w500,
+                            Column(
+                              children: [
+                                Text(
+                                  '"${currentQuote.text}"',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 18.sp,
+                                    color: Colors.white,
+                                    fontFamily: "Poppins",
+                                    height: 1.5,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
+
+                                SizedBox(height: 20.h),
+
+                                Text(
+                                  currentQuote.author.isNotEmpty
+                                      ? '- ${currentQuote.author}'
+                                      : '- Unknown',
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: Colors.grey.shade400,
+                                    fontFamily: "Poppins",
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+
+                                SizedBox(height: 20.h),
+
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 24.w,
+                                    vertical: 8.h,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.withAlpha(100),
+                                    borderRadius: BorderRadius.circular(10.r),
+                                  ),
+                                  child: Text(
+                                    currentQuote.category,
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      color: Colors.black,
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Positioned(
+                              top: -10.h,
+                              right: -10.w,
+                              child: FavoriteButton(
+                                quote: currentQuote,
+                                size: 24.h,
                               ),
                             ),
                           ],

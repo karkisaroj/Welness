@@ -10,6 +10,7 @@ import 'package:welness/screens/quote_page.dart';
 import 'package:welness/screens/quotes_details_screen.dart';
 import 'package:welness/screens/signup_screen.dart';
 import 'package:welness/screens/splash_screen.dart';
+import 'package:welness/screens/favorites_screen.dart';
 
 class AppRoutes {
   static const String splash = '/splash';
@@ -24,8 +25,9 @@ class AppRoutes {
   static const String quotesDetails = "/quotes-details";
   static const String adminDashboard = "/adminDashboard";
   static const String category = "/category";
+  static const String favorites = "/favorites";
 
-  static Map<String, WidgetBuilder> getRoutes() {
+  static Map<String, WidgetBuilder> getRoutes({VoidCallback? toggleTheme}) {
     return {
       splash: (context) => const SplashScreen(),
       login: (context) => const LoginScreen(),
@@ -37,10 +39,11 @@ class AppRoutes {
             ModalRoute.of(context)!.settings.arguments as List<String>,
       ),
       dashboard: (context) => const DashboardScreen(),
-      profile: (context) => const ProfileScreen(),
+      profile: (context) => ProfileScreen(toggleTheme: toggleTheme),
       quotesDetails: (context) => const QuotesDetailsScreen(),
       adminDashboard: (context) => const AdminDashboard(),
       category: (context) => const CategoryScreen(),
+      favorites: (context) => const FavoritesScreen(),
     };
   }
 }

@@ -31,7 +31,31 @@ class Quote {
       'quote': text,
       'author': author,
       'category': category,
-      'createdAt': createdAt,
+      'createdAt': createdAt.toIso8601String(),
+    };
+  }
+
+  factory Quote.fromJson(Map<String, dynamic> json) {
+    return Quote(
+      id: json['id'] is int
+          ? json['id']
+          : int.tryParse(json['id'].toString()) ?? 0,
+      text: json['quote']?.toString() ?? '',
+      author: json['author']?.toString() ?? 'Unknown',
+      category: json['category']?.toString() ?? '',
+      createdAt: json['createdAt'] != null
+          ? DateTime.parse(json['createdAt'])
+          : DateTime.now(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'quote': text,
+      'author': author,
+      'category': category,
+      'createdAt': createdAt.toIso8601String(),
     };
   }
 }

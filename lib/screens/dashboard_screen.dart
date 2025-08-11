@@ -4,6 +4,9 @@ import 'package:welness/app/app_routes.dart';
 import 'package:welness/dummy_data/quotes_data.dart';
 import 'package:welness/services/auth_service.dart';
 import 'package:welness/models/quote.dart';
+import 'package:welness/widgets/custom_card.dart';
+import 'package:welness/widgets/custom_button.dart';
+import 'package:welness/widgets/favorite_button.dart';
 import 'dart:developer';
 
 class DashboardScreen extends StatefulWidget {
@@ -48,14 +51,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Scaffold(
+      backgroundColor: isDark ? Colors.black : Color(0xFFF8F9FA),
       appBar: AppBar(
+        backgroundColor: isDark ? Colors.black : Color(0xFFF8F9FA),
+        elevation: 0,
         title: Text(
           "Explore",
           style: TextStyle(
             fontFamily: "Poppins",
-            fontSize: 20.h,
-            fontWeight: FontWeight.w500,
+            fontSize: 24.sp,
+            fontWeight: FontWeight.w700,
+            color: isDark ? Colors.white : Colors.black87,
           ),
         ),
         automaticallyImplyLeading: false,
@@ -66,9 +76,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.profile);
               },
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                  "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=1160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Color(0xFF6C63FF).withOpacity(0.3),
+                    width: 2,
+                  ),
+                ),
+                child: CircleAvatar(
+                  radius: 18.r,
+                  backgroundImage: NetworkImage(
+                    "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=1160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                  ),
                 ),
               ),
             ),
@@ -77,77 +97,102 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 30.h),
+            SizedBox(height: 20.h),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: Size(150.w, 50.h),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r),
+                Expanded(
+                  child: GradientCard(
+                    margin: EdgeInsets.only(left: 20.w, right: 8.w),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 12.h,
                     ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.favorite_outline, color: Colors.white),
-                      SizedBox(width: 8.w),
-                      Text(
-                        "My favourites",
-                        style: TextStyle(color: Colors.white, fontSize: 12.sp),
-                      ),
-                    ],
+                    onTap: () {
+                      Navigator.pushNamed(context, AppRoutes.favorites);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.favorite_outline,
+                          color: Color(0xFFFF6B6B),
+                          size: 20.h,
+                        ),
+                        SizedBox(width: 8.w),
+                        Text(
+                          "Favorites",
+                          style: TextStyle(
+                            color: isDark ? Colors.white : Colors.black87,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: "Poppins",
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                SizedBox(width: 15.w),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: Size(160.w, 50.h),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r),
+                Expanded(
+                  child: GradientCard(
+                    margin: EdgeInsets.only(left: 8.w, right: 20.w),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 12.h,
                     ),
-                  ),
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.notifications_none_outlined,
-                        color: Colors.white,
-                      ),
-                      SizedBox(width: 8.w),
-                      Text(
-                        "Remind Me",
-                        style: TextStyle(color: Colors.white, fontSize: 12.sp),
-                      ),
-                    ],
+                    onTap: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.notifications_outlined,
+                          color: Color(0xFF4ECDC4),
+                          size: 20.h,
+                        ),
+                        SizedBox(width: 8.w),
+                        Text(
+                          "Reminders",
+                          style: TextStyle(
+                            color: isDark ? Colors.white : Colors.black87,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: "Poppins",
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
 
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.only(left: 20.w, top: 30.h),
-                child: Text(
-                  "Today's Quote",
-                  style: TextStyle(
-                    fontFamily: "Poppins",
-                    fontSize: 17.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 15.h),
+              child: Text(
+                "Today's Quote",
+                style: TextStyle(
+                  fontFamily: "Poppins",
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w700,
+                  color: isDark ? Colors.white : Colors.black87,
                 ),
               ),
             ),
 
-            SizedBox(height: 15.h),
-
-            ElevatedButton(
-              onPressed: () {
+            GradientCard(
+              gradientColors: isDark
+                  ? [
+                      Color(0xFF6C63FF).withOpacity(0.8),
+                      Color(0xFF4ECDC4).withOpacity(0.8),
+                    ]
+                  : [
+                      Color(0xFF6C63FF).withOpacity(0.9),
+                      Color(0xFF4ECDC4).withOpacity(0.9),
+                    ],
+              onTap: () {
                 log("Navigating to quotes details");
                 Navigator.pushNamed(
                   context,
@@ -155,67 +200,80 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   arguments: AuthService.currentAppUser?.preferences ?? [],
                 );
               },
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(320.w, 160.h),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.r),
-                ),
-              ),
-              child: RichText(
-                text: TextSpan(
+              child: Container(
+                height: 140.h,
+                child: Stack(
                   children: [
-                    TextSpan(
-                      text: todaysQuote != null
-                          ? '"${todaysQuote!.text}"'
-                          : '"Loading your personalized quote..."',
-                      style: TextStyle(
-                        fontFamily: "Poppins",
-                        fontSize: 14.h,
-                        color: Colors.white,
-                        fontStyle: FontStyle.italic,
+                    Positioned.fill(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            todaysQuote != null
+                                ? '"${todaysQuote!.text}"'
+                                : '"Loading your personalized quote..."',
+                            style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: 16.sp,
+                              color: Colors.white,
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.w500,
+                              height: 1.4,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 12.h),
+                          Text(
+                            todaysQuote != null
+                                ? "— ${todaysQuote!.author.isNotEmpty ? todaysQuote!.author : 'Sam Levenson'}"
+                                : "— Loading...",
+                            style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: 12.sp,
+                              color: Colors.white70,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    TextSpan(
-                      text: todaysQuote != null
-                          ? "\n\n- ${todaysQuote!.author.isNotEmpty ? todaysQuote!.author : 'Sam Levenson'}"
-                          : "\n\n- Loading...",
-                      style: TextStyle(
-                        fontFamily: "Poppins",
-                        fontSize: 10.h,
-                        color: Colors.grey,
+                    if (todaysQuote != null)
+                      Positioned(
+                        top: 8.h,
+                        right: 8.w,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                          child: FavoriteButton(
+                            quote: todaysQuote!,
+                            size: 20.h,
+                          ),
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),
             ),
 
-            SizedBox(height: 30.h),
-
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.only(left: 20.w),
-                child: Text(
-                  "Quote Categories",
-                  style: TextStyle(
-                    fontSize: 17.sp,
-                    fontFamily: "Poppins",
-                    fontWeight: FontWeight.bold,
-                  ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 15.h),
+              child: Text(
+                "Quote Categories",
+                style: TextStyle(
+                  fontSize: 20.sp,
+                  fontFamily: "Poppins",
+                  fontWeight: FontWeight.w700,
+                  color: isDark ? Colors.white : Colors.black87,
                 ),
               ),
             ),
 
-            SizedBox(height: 15.h),
-
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(310.w, 45.h),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-              ),
+            CategoryButton(
+              title: "Motivation",
+              icon: Icons.emoji_events_outlined,
+              iconColor: Color(0xFFFF9F43),
               onPressed: () {
                 Navigator.pushNamed(
                   context,
@@ -223,30 +281,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   arguments: ["Motivation"],
                 );
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(Icons.emoji_events_outlined, color: Colors.white),
-                  SizedBox(width: 15.w),
-                  Text(
-                    "Motivation",
-                    style: TextStyle(color: Colors.white, fontSize: 14.sp),
-                  ),
-                  Spacer(),
-                  Icon(Icons.keyboard_arrow_right_outlined, color: Colors.grey),
-                ],
-              ),
             ),
 
-            SizedBox(height: 15.h),
-
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(310.w, 45.h),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-              ),
+            CategoryButton(
+              title: "Self-Confidence",
+              icon: Icons.psychology_outlined,
+              iconColor: Color(0xFF6C63FF),
               onPressed: () {
                 Navigator.pushNamed(
                   context,
@@ -254,30 +294,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   arguments: ["Self-Confidence"],
                 );
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(Icons.psychology_outlined, color: Colors.white),
-                  SizedBox(width: 15.w),
-                  Text(
-                    "Self-Confidence",
-                    style: TextStyle(color: Colors.white, fontSize: 14.sp),
-                  ),
-                  Spacer(),
-                  Icon(Icons.keyboard_arrow_right_outlined, color: Colors.grey),
-                ],
-              ),
             ),
 
-            SizedBox(height: 15.h),
-
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(310.w, 45.h),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-              ),
+            CategoryButton(
+              title: "Happiness",
+              icon: Icons.sentiment_very_satisfied_outlined,
+              iconColor: Color(0xFFFF6B6B),
               onPressed: () {
                 Navigator.pushNamed(
                   context,
@@ -285,33 +307,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   arguments: ["Happiness"],
                 );
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.sentiment_very_satisfied_outlined,
-                    color: Colors.white,
-                  ),
-                  SizedBox(width: 15.w),
-                  Text(
-                    "Happiness",
-                    style: TextStyle(color: Colors.white, fontSize: 14.sp),
-                  ),
-                  Spacer(),
-                  Icon(Icons.keyboard_arrow_right_outlined, color: Colors.grey),
-                ],
-              ),
             ),
 
-            SizedBox(height: 15.h),
-
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(310.w, 45.h),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-              ),
+            CategoryButton(
+              title: "Letting Go",
+              icon: Icons.free_breakfast_outlined,
+              iconColor: Color(0xFF4ECDC4),
               onPressed: () {
                 Navigator.pushNamed(
                   context,
@@ -319,30 +320,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   arguments: ["Letting go"],
                 );
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(Icons.free_breakfast_outlined, color: Colors.white),
-                  SizedBox(width: 15.w),
-                  Text(
-                    "Letting go",
-                    style: TextStyle(color: Colors.white, fontSize: 14.sp),
-                  ),
-                  Spacer(),
-                  Icon(Icons.keyboard_arrow_right_outlined, color: Colors.grey),
-                ],
-              ),
             ),
 
-            SizedBox(height: 15.h),
-
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(310.w, 45.h),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-              ),
+            CategoryButton(
+              title: "Achieving Goals",
+              icon: Icons.flag_outlined,
+              iconColor: Color(0xFF95A5A6),
               onPressed: () {
                 Navigator.pushNamed(
                   context,
@@ -350,30 +333,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   arguments: ["Achieving goals"],
                 );
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(Icons.flag_outlined, color: Colors.white),
-                  SizedBox(width: 15.w),
-                  Text(
-                    "Achieving goals",
-                    style: TextStyle(color: Colors.white, fontSize: 14.sp),
-                  ),
-                  Spacer(),
-                  Icon(Icons.keyboard_arrow_right_outlined, color: Colors.grey),
-                ],
-              ),
             ),
 
-            SizedBox(height: 15.h),
-
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(310.w, 45.h),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-              ),
+            CategoryButton(
+              title: "New",
+              icon: Icons.new_releases_outlined,
+              iconColor: Color(0xFFE74C3C),
               onPressed: () {
                 Navigator.pushNamed(
                   context,
@@ -381,64 +346,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   arguments: ["New"],
                 );
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(Icons.new_releases_outlined, color: Colors.white),
-                  SizedBox(width: 15.w),
-                  Text(
-                    "New",
-                    style: TextStyle(color: Colors.white, fontSize: 14.sp),
-                  ),
-                  Spacer(),
-                  Icon(Icons.keyboard_arrow_right_outlined, color: Colors.grey),
-                ],
+            ),
+
+            Padding(
+              padding: EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 15.h),
+              child: Text(
+                "Wellness Tips",
+                style: TextStyle(
+                  fontFamily: "Poppins",
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w700,
+                  color: isDark ? Colors.white : Colors.black87,
+                ),
               ),
+            ),
+
+            CategoryButton(
+              title: "Breathe to Reset",
+              icon: Icons.air_outlined,
+              iconColor: Color(0xFF27AE60),
+              onPressed: () {},
             ),
 
             SizedBox(height: 30.h),
-
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.only(left: 20.w),
-                child: Text(
-                  "Health Tips",
-                  style: TextStyle(
-                    fontFamily: "Poppins",
-                    fontSize: 17.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-
-            SizedBox(height: 15.h),
-
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(310.w, 45.h),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-              ),
-              onPressed: () {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(Icons.air_outlined, color: Colors.white),
-                  SizedBox(width: 15.w),
-                  Text(
-                    "Breathe to Reset",
-                    style: TextStyle(color: Colors.white, fontSize: 14.sp),
-                  ),
-                  Spacer(),
-                  Icon(Icons.keyboard_arrow_right_outlined, color: Colors.grey),
-                ],
-              ),
-            ),
-
-            SizedBox(height: 20.h),
           ],
         ),
       ),
